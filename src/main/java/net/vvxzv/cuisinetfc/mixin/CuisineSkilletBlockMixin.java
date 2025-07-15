@@ -8,6 +8,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
@@ -51,8 +52,13 @@ public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
         if (be instanceof CuisineSkilletBlockEntity skillet) {
             heldStack.getCapability(FoodCapability.CAPABILITY).ifPresent(tfcFood -> {
                 float[] nutrients = tfcFood.getData().nutrients();
+                int allowInputCount = 1 + ((CuisineSkilletBlockEntity) be).baseItem.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
+                int stackCount = heldStack.getCount();
+                int count = Math.min(stackCount, allowInputCount);
                 if (skillet instanceof TfcNutritionHolder holder) {
-                    holder.addTfcNutrition(nutrients);
+                    for (int i = 0; i < count; i++){
+                        holder.addTfcNutrition(nutrients);
+                    }
                 }
             });
         }

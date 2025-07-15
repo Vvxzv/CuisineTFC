@@ -58,8 +58,9 @@ public class PlateItemMixin {
         nutrientsTag.putFloat("meat", nutrients[3]);
         nutrientsTag.putFloat("dairy", nutrients[4]);
 
-        CookedFoodData.putInt("size", 3);
+        stackTag.putInt("hunger", CookedFoodData.getInt("size"));
         stackTag.put("nutrients", nutrientsTag);
+        CookedFoodData.putInt("size", 3);
         foodStack.setTag(stackTag);
 
         holder.resetTfcNutrition();

@@ -41,7 +41,7 @@ public class EventHandler {
             if(cookedFoodData != null && !cookedFoodData.entries.isEmpty()){
                 CompoundTag stackTag = stack.getOrCreateTag();
                 CompoundTag nutrients = stackTag.getCompound("nutrients");
-                int hunger = cookedFoodData.total;
+                int hunger = stackTag.getInt("hunger");
                 float quality = cookedFoodData.score / 100f;
                 float grain = nutrients.getFloat("grain");
                 float fruit = nutrients.getFloat("fruit");
@@ -51,7 +51,7 @@ public class EventHandler {
                 float[] nutrientsArray = calculateNutrients(grain, fruit, veg, meat, dairy, quality);
                 var data = new FoodData(
                         hunger,
-                        0.5f * nutrientsArray[1],
+                        nutrientsArray[1] + nutrientsArray[2],
                         0.6f * hunger,
                         nutrientsArray[0],
                         nutrientsArray[1],
@@ -84,6 +84,7 @@ public class EventHandler {
 
         for (int i = 0; i < resultArray.length; i++) {
             resultArray[i] = resultArray[i] * 0.5f * quality;
+            if(resultArray[i] > 6) resultArray[i] = 6;
         }
 
         return resultArray;

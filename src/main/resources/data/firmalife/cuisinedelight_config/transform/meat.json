@@ -1,0 +1,9 @@
+{
+  "fluidTransform": {},
+  "itemTransform": {
+    "firmalife:food/bacon": {
+      "next": "firmalife:food/cooked_bacon",
+      "stage": "COOKED"
+    }
+  }
+}

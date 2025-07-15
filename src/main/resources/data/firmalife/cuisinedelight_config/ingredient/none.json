@@ -1,0 +1,42 @@
+{
+    "_class": "dev.xkmc.cuisinedelight.content.logic.IngredientConfig",
+    "entries": [
+        {
+            "type": "NONE",
+            "effects": [],
+            "ingredient": [
+                {
+                    "item": "firmalife:food/butter"
+                },
+                {
+                    "item": "firmalife:food/salsa"
+                },
+                {
+                    "item": "firmalife:food/tomato_sauce"
+                },
+                {
+                    "item": "firmalife:food/shredded_cheese"
+                },
+                {
+                    "item": "firmalife:food/gouda"
+                },
+                {
+                    "item": "firmalife:food/feta"
+                },
+                {
+                    "item": "firmalife:food/shosha"
+                },
+                {
+                    "item": "firmalife:food/chevre"
+                }
+            ],
+            "max_time": 360,
+            "min_time": 0,
+            "nutrition": 1,
+            "overcook_penalty": 0.1,
+            "raw_penalty": 0.1,
+            "size": 1,
+            "stir_time": 180
+        }
+    ]
+}
