@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.vvxzv.cuisinetfc.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "cuisinetfc.refmap.json",
+  "mixins": [
+    "CuisineSkilletBlockEntityMixin",
+    "CuisineSkilletBlockMixin",
+    "PlateItemMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
