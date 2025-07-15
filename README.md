@@ -1,2 +1,2 @@
 # CuisineTFC
-A mod about adding TFC nutrients to Cuisine
+A Minecraft mod about adding TFC nutrients to Cuisine
