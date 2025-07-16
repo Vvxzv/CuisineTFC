@@ -2,6 +2,7 @@ package net.vvxzv.cuisinetfc.mixin;
 
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlock;
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlockEntity;
+import dev.xkmc.cuisinedelight.content.logic.IngredientConfig;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -47,6 +48,9 @@ public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
             CallbackInfoReturnable<InteractionResult> cir
     ) {
         ItemStack heldStack = player.getItemInHand(hand);
+        IngredientConfig.IngredientEntry config = IngredientConfig.get().getEntry(heldStack);
+        if(config == null) return;
+
         BlockEntity be = level.getBlockEntity(pos);
 
         if (be instanceof CuisineSkilletBlockEntity skillet) {
