@@ -15,9 +15,9 @@ Changes to the original mod & The traits of mod
 
 Dependency Mods
 
-1.Required
-TerraFirmaCraft https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft
-Cuisine Delight https://www.curseforge.com/minecraft/mc-mods/cuisine-delight
+Required
+1. TerraFirmaCraft https://www.curseforge.com/minecraft/mc-mods/terrafirmacraft
+2. Cuisine Delight https://www.curseforge.com/minecraft/mc-mods/cuisine-delight
 
-2. Optional
-Farmer's Delight TFC https://www.curseforge.com/minecraft/mc-mods/farmers-delight-tfc
+Optional
+1. Farmer's Delight TFC https://www.curseforge.com/minecraft/mc-mods/farmers-delight-tfc
