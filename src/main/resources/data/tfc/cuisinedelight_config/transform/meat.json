@@ -84,14 +84,6 @@
     "tfc:food/pork": {
       "next": "tfc:food/cooked_pork",
       "stage": "COOKED"
-    },
-    "tfc:food/cooked_egg": {
-      "next": "tfc:food/overcooked_egg",
-      "stage": "OVERCOOKED"
-    },
-    "tfc:food/boiled_egg": {
-      "next": "tfc:food/overcooked_boiled_egg",
-      "stage": "OVERCOOKED"
     }
   }
 }

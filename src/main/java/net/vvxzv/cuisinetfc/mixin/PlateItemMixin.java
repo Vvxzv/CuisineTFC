@@ -44,7 +44,6 @@ public class PlateItemMixin {
     ) {
         if (level.isClientSide() || !(be instanceof TfcNutritionHolder holder)) return;
 
-        // 1. 获取营养数据
         float[] nutrients = holder.getTfcNutrition();
 
         CompoundTag stackTag = foodStack.getOrCreateTag();

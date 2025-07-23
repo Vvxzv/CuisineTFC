@@ -85,7 +85,7 @@
             "nutrition": 8,
             "overcook_penalty": 0.5,
             "raw_penalty": 0.5,
-            "size": 1,
+            "size": 2,
             "stir_time": 80
         },
         {
