@@ -27,7 +27,7 @@ displayName="Cuisine TFC" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 #displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile="cuisinetfc.png" #optional
+logoFile="cuisinetfc.png" #optional
 # A text field displayed in the mod UI
 #credits="Thanks for this example mod goes to Java" #optional
 # A text field displayed in the mod UI
@@ -42,7 +42,9 @@ authors="Vvxzv" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
+This is a mod for adding dynamic TerraFirmaCraft nutrients(grain, fruit, vegetable, meat, dairy) to Cuisine Delight.
 
+这是一个为料理乐事添加动态群峦营养（谷物、水果、蔬菜、肉类、乳制品）的模组。
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.cuisinetfc]] #optional

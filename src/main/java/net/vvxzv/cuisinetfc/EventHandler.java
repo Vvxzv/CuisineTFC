@@ -14,7 +14,21 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
+import java.util.Arrays;
+
 public class EventHandler {
+    private static float factor;
+    private static int maxNutrient;
+
+    static {
+        updateConfigValues();
+    }
+
+    public static void updateConfigValues() {
+        factor = (float) Config.cuisineBonus / Config.foodSize;
+        maxNutrient = Config.maxNutrient;
+    }
+
     public static void init(){
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addGenericListener(ItemStack.class, EventHandler::attachItemCapabilities);
@@ -83,8 +97,8 @@ public class EventHandler {
         resultArray[minIndex] = 0f;
 
         for (int i = 0; i < resultArray.length; i++) {
-            resultArray[i] = resultArray[i] * 0.5f * quality;
-            if(resultArray[i] > 6) resultArray[i] = 6;
+            resultArray[i] = resultArray[i] * factor * quality;
+            if(resultArray[i] > maxNutrient) resultArray[i] = maxNutrient;
         }
 
         return resultArray;

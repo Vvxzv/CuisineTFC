@@ -10,6 +10,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
+import net.vvxzv.cuisinetfc.Config;
 import net.vvxzv.cuisinetfc.TfcNutritionHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,6 +20,10 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(PlateItem.class)
 public class PlateItemMixin {
+    private static int getFoodSize() {
+        return Config.foodSize;
+    }
+
     @Inject(
             method = "useOn",
             at = @At(
@@ -59,7 +64,7 @@ public class PlateItemMixin {
 
         stackTag.putInt("hunger", CookedFoodData.getInt("size"));
         stackTag.put("nutrients", nutrientsTag);
-        CookedFoodData.putInt("size", 3);
+        CookedFoodData.putInt("size", getFoodSize());
         foodStack.setTag(stackTag);
 
         holder.resetTfcNutrition();
