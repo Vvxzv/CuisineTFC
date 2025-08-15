@@ -9,9 +9,9 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 public class Config {
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue COMMENT = BUILDER.comment("Nutrients calculation is (score / 100) * nutrient * (cuisineBonus / foodSize).").comment("营养值计算是 (分数 / 100) * 营养 * (炒菜加成 / 食物份量)").define("comment", true);
+    private static final ForgeConfigSpec.BooleanValue COMMENT = BUILDER.comment(" ").comment("Nutrients calculation is (score / 100) * nutrient * (cuisineBonus / foodSize).").comment("营养值计算是 (分数 / 100) * 营养 * (炒菜加成 / 食物份量)").define("comment", true);
 
-    private static final ForgeConfigSpec.IntValue FOOD_SIZE = BUILDER.comment(" ").comment(" ").comment("Food size.  (defaultValue 3)").comment("食物份量.  (默认数值 3)").defineInRange("foodSize", 3, 1, 54);
+    private static final ForgeConfigSpec.IntValue FOOD_SIZE = BUILDER.comment(" ").comment("Food size.  (defaultValue 3)").comment("食物份量.  (默认数值 3)").defineInRange("foodSize", 3, 1, 54);
 
     private static final ForgeConfigSpec.DoubleValue CUISINE_BONUS = BUILDER.comment(" ").comment("Cuisine bonus.  (defaultValue 1.5)").comment("炒菜加成.  (默认数值 1.5)").defineInRange("cuisineBonus", 1.5, 1, 27);
 
