@@ -2,6 +2,7 @@ package net.vvxzv.cuisinetfc;
 
 import dev.xkmc.cuisinedelight.content.item.BaseFoodItem;
 import dev.xkmc.cuisinedelight.content.logic.CookedFoodData;
+import dev.xkmc.cuisinedelight.init.registrate.PlateFood;
 import net.dries007.tfc.common.capabilities.egg.EggCapability;
 import net.dries007.tfc.common.capabilities.egg.EggHandler;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
@@ -14,11 +15,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-import java.util.Arrays;
 
 public class EventHandler {
     private static float factor;
     private static int maxNutrient;
+    private static float suspiciousMixFactor;
 
     static {
         updateConfigValues();
@@ -27,6 +28,7 @@ public class EventHandler {
     public static void updateConfigValues() {
         factor = (float) Config.cuisineBonus / Config.foodSize;
         maxNutrient = Config.maxNutrient;
+        suspiciousMixFactor = (float) Config.suspiciousMixFactor;
     }
 
     public static void init(){
@@ -62,7 +64,7 @@ public class EventHandler {
                 float veg = nutrients.getFloat("veg");
                 float meat = nutrients.getFloat("meat");
                 float dairy = nutrients.getFloat("dairy");
-                float[] nutrientsArray = calculateNutrients(grain, fruit, veg, meat, dairy, quality);
+                float[] nutrientsArray = calculateNutrients(grain, fruit, veg, meat, dairy, quality, stack);
                 var data = new FoodData(
                         hunger,
                         nutrientsArray[1] + nutrientsArray[2],
@@ -81,7 +83,7 @@ public class EventHandler {
         return null;
     }
 
-    public static float[] calculateNutrients(float arg0, float arg1, float arg2, float arg3, float arg4, float quality) {
+    public static float[] calculateNutrients(float arg0, float arg1, float arg2, float arg3, float arg4, float quality, ItemStack stack) {
 
         float[] inputArray = {arg0, arg1, arg2, arg3, arg4};
 
@@ -99,6 +101,7 @@ public class EventHandler {
         for (int i = 0; i < resultArray.length; i++) {
             resultArray[i] = resultArray[i] * factor * quality;
             if(resultArray[i] > maxNutrient) resultArray[i] = maxNutrient;
+            if(stack.is(PlateFood.SUSPICIOUS_MIX.item.get())) resultArray[i] *= suspiciousMixFactor;
         }
 
         return resultArray;

@@ -142,6 +142,9 @@ repositories {
     // flatDir {
     //     dir 'libs'
     // }
+    maven { // Registrate
+        url "https://maven.tterrag.com/"
+    }
     maven {
         url = "https://www.cursemaven.com"
         content {
@@ -169,6 +172,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
     //farmer delight
     implementation fg.deobf("curse.maven:farmers-delight-398521:6597298")
