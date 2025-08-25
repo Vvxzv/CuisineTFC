@@ -175,7 +175,7 @@ dependencies {
 
     compileOnly fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
 
-    //farmer delight
+    //farmer's delight
     implementation fg.deobf("curse.maven:farmers-delight-398521:6597298")
     //l2
     implementation fg.deobf("curse.maven:l2library-620203:6720204")
@@ -188,7 +188,7 @@ dependencies {
     //jei
     runtimeOnly fg.deobf("curse.maven:jei-238222:6600311")
     //farmerstfc
-    runtimeOnly fg.deobf("curse.maven:farmers-tfc-1318733:6849856")
+    runtimeOnly fg.deobf("curse.maven:farmers-tfc-1318733:6923028")
 
 }
 

@@ -3,6 +3,7 @@ package net.vvxzv.cuisinetfc.mixin;
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlock;
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlockEntity;
 import dev.xkmc.cuisinedelight.content.logic.IngredientConfig;
+import dev.xkmc.cuisinedelight.init.data.CDConfig;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -64,6 +65,7 @@ public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
                 int allowInputCount = 1 + ((CuisineSkilletBlockEntity) be).baseItem.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
                 int stackCount = heldStack.getCount();
                 int count = Math.min(stackCount, allowInputCount);
+                if(((CuisineSkilletBlockEntity) be).cookingData.contents.size() >= (Integer) CDConfig.COMMON.maxIngredient.get()) return;
                 if (skillet instanceof TfcNutritionHolder holder) {
                     for (int i = 0; i < count; i++){
                         holder.addTfcNutrition(nutrients);
