@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
-import net.vvxzv.cuisinetfc.TfcNutritionHolder;
+import net.vvxzv.cuisinetfc.common.TFCNutrientsHolder;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -66,10 +66,11 @@ public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
                 int stackCount = heldStack.getCount();
                 int count = Math.min(stackCount, allowInputCount);
                 if(((CuisineSkilletBlockEntity) be).cookingData.contents.size() >= (Integer) CDConfig.COMMON.maxIngredient.get()) return;
-                if (skillet instanceof TfcNutritionHolder holder) {
+                if (skillet instanceof TFCNutrientsHolder holder) {
                     for (int i = 0; i < count; i++){
-                        holder.addTfcNutrition(nutrients);
+                        holder.addTFCNutrients(nutrients);
                     }
+                    holder.addRottenFood(tfcFood.isRotten());
                 }
             });
         }
