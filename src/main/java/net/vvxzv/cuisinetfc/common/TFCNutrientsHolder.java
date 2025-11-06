@@ -6,4 +6,5 @@ public interface TFCNutrientsHolder {
     void reset();
     void addRottenFood(boolean rotten);
     boolean hasRottenFood();
+
 }

@@ -1,8 +1,8 @@
 package net.vvxzv.cuisinetfc.mixin;
 
 import dev.xkmc.cuisinedelight.content.block.CuisineSkilletBlockEntity;
-import dev.xkmc.l2library.base.tile.BaseBlockEntity;
-import net.dries007.tfc.common.capabilities.food.Nutrient;
+import dev.xkmc.l2core.base.tile.BaseBlockEntity;
+import net.dries007.tfc.common.component.food.Nutrient;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import java.util.Arrays;
 
 @Mixin(CuisineSkilletBlockEntity.class)
-public abstract class CuisineSkilletBlockEntityMixin extends BaseBlockEntity implements TFCNutrientsHolder {
+public class CuisineSkilletBlockEntityMixin extends BaseBlockEntity implements TFCNutrientsHolder {
     private final float[] tfcNutrients = new float[Nutrient.TOTAL];
     private boolean hasRottenFood = false;
 

@@ -1,28 +1,38 @@
 package net.vvxzv.cuisinetfc;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import net.vvxzv.cuisinetfc.common.EventHandler;
 
-@Mod.EventBusSubscriber(modid = CuisineTFC.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
+// Demonstrates how to use Neo's config APIs
+@EventBusSubscriber(modid = CuisineTFC.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config {
-    private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
+    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
-    private static final ForgeConfigSpec.BooleanValue COMMENT = BUILDER.comment(" ").comment("Nutrients calculation is (score / 100) * nutrient * (cuisineBonus / foodSize).").comment("营养值计算是 (分数 / 100) * 营养 * (炒菜加成 / 食物份量)").define("comment", true);
+    private static final ModConfigSpec.BooleanValue COMMENT = BUILDER.comment(" ").comment("Nutrients calculation is (score / 100) * nutrient * (cuisineBonus / foodSize).").comment("营养值计算是 (分数 / 100) * 营养 * (炒菜加成 / 食物份量)").define("comment", true);
 
-    private static final ForgeConfigSpec.IntValue FOOD_SIZE = BUILDER.comment(" ").comment("Food size.  (defaultValue 3)").comment("食物份量.  (默认数值 3)").defineInRange("foodSize", 3, 1, 54);
+    private static final ModConfigSpec.IntValue FOOD_SIZE = BUILDER.comment(" ").comment("Food size.  (defaultValue 3)").comment("食物份量.  (默认数值 3)").defineInRange("foodSize", 3, 1, 54);
 
-    private static final ForgeConfigSpec.DoubleValue CUISINE_BONUS = BUILDER.comment(" ").comment("Cuisine bonus.  (defaultValue 1.5)").comment("炒菜加成.  (默认数值 1.5)").defineInRange("cuisineBonus", 1.5, 1, 27);
+    private static final ModConfigSpec.DoubleValue CUISINE_BONUS = BUILDER.comment(" ").comment("Cuisine bonus.  (defaultValue 1.5)").comment("炒菜加成.  (默认数值 1.5)").defineInRange("cuisineBonus", 1.5, 1, 27);
 
-    private static final ForgeConfigSpec.IntValue MAX_NUTRIENT = BUILDER.comment(" ").comment("The max nutrient.  (defaultValue 6)").comment("最大营养值.  (默认数值 6)").defineInRange("maxNutrient", 6, 1, Integer.MAX_VALUE);
+    private static final ModConfigSpec.IntValue MAX_NUTRIENT = BUILDER.comment(" ").comment("The max nutrient.  (defaultValue 6)").comment("最大营养值.  (默认数值 6)").defineInRange("maxNutrient", 6, 1, Integer.MAX_VALUE);
 
-    private static final ForgeConfigSpec.DoubleValue SUSPICIOUS_MIX_FACTOR = BUILDER.comment(" ").comment("The nutrient factor of Suspicious Mix.  (defaultValue 0.8)").comment("大乱炖的营养系数.  (默认数值 0.8)").defineInRange("suspiciousMixFactor", 0.8, 0, 1);
+    private static final ModConfigSpec.DoubleValue SUSPICIOUS_MIX_FACTOR = BUILDER.comment(" ").comment("The nutrient factor of Suspicious Mix.  (defaultValue 0.8)").comment("大乱炖的营养系数.  (默认数值 0.8)").defineInRange("suspiciousMixFactor", 0.8, 0, 1);
 
-    private static final ForgeConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 0.2)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 0.2)").defineInRange("usedRottenFood", 0.2, 0, 1);
+    private static final ModConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 9999)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 9999)").defineInRange("usedRottenFoodDecayingModifiers", 9999, 0, Double.MAX_VALUE);
 
-    static final ForgeConfigSpec SPEC = BUILDER.build();
+    static final ModConfigSpec SPEC = BUILDER.build();
 
     public static int foodSize;
     public static double cuisineBonus;
@@ -30,8 +40,9 @@ public class Config {
     public static double suspiciousMixFactor;
     public static double usedRottenFood;
 
+
     @SubscribeEvent
-    static void onLoad(final ModConfigEvent event){
+    static void onLoad(final ModConfigEvent event) {
         foodSize = FOOD_SIZE.get();
         cuisineBonus = CUISINE_BONUS.get();
         maxNutrient = MAX_NUTRIENT.get();
