@@ -21,15 +21,9 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vectorwing.farmersdelight.common.block.SkilletBlock;
 
 @Mixin(CuisineSkilletBlock.class)
-public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
-
-    public CuisineSkilletBlockMixin(Properties properties) {
-        super(properties);
-    }
-
+public class CuisineSkilletBlockMixin {
     @Inject(
             method = "use",
             at = @At(
@@ -62,10 +56,10 @@ public abstract class CuisineSkilletBlockMixin extends SkilletBlock {
                     nutrients[3] = 1.5f;
                     nutrients[4] = 0.3f;
                 }
-                int allowInputCount = 1 + ((CuisineSkilletBlockEntity) be).baseItem.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
+                int allowInputCount = 1 + skillet.baseItem.getEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY);
                 int stackCount = heldStack.getCount();
                 int count = Math.min(stackCount, allowInputCount);
-                if(((CuisineSkilletBlockEntity) be).cookingData.contents.size() >= (Integer) CDConfig.COMMON.maxIngredient.get()) return;
+                if(skillet.cookingData.contents.size() >= CDConfig.COMMON.maxIngredient.get()) return;
                 if (skillet instanceof TFCNutrientsHolder holder) {
                     for (int i = 0; i < count; i++){
                         holder.addTFCNutrients(nutrients);

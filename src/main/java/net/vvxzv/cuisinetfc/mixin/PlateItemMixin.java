@@ -14,6 +14,7 @@ import net.minecraft.world.level.Level;
 import net.vvxzv.cuisinetfc.Config;
 import net.vvxzv.cuisinetfc.common.TFCNutrientsHolder;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -21,10 +22,12 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(PlateItem.class)
 public class PlateItemMixin {
+    @Unique
     private static int getFoodSize() {
         return Config.foodSize;
     }
 
+    @Unique
     private static float getPunishFactor(){
         return (float) Config.usedRottenFood;
     }

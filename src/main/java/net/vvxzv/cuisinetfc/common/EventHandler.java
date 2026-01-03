@@ -3,14 +3,11 @@ package net.vvxzv.cuisinetfc.common;
 import dev.xkmc.cuisinedelight.content.item.BaseFoodItem;
 import dev.xkmc.cuisinedelight.content.logic.CookedFoodData;
 import dev.xkmc.cuisinedelight.init.registrate.PlateFood;
-import net.dries007.tfc.common.capabilities.egg.EggCapability;
-import net.dries007.tfc.common.capabilities.egg.EggHandler;
 import net.dries007.tfc.common.capabilities.food.FoodCapability;
 import net.dries007.tfc.common.capabilities.food.FoodData;
 import net.dries007.tfc.common.capabilities.food.FoodHandler;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,7 +28,7 @@ public class EventHandler {
         factor = (float) Config.cuisineBonus / Config.foodSize;
         maxNutrient = Config.maxNutrient;
         suspiciousMixFactor = (float) Config.suspiciousMixFactor;
-        rottenFoodDecayFactor = (float) Config.usedRottenFood;
+        rottenFoodDecayFactor = 2000F / (float) Config.usedRottenFood;
     }
 
     public static void init(){
@@ -42,13 +39,9 @@ public class EventHandler {
     public static void attachItemCapabilities(AttachCapabilitiesEvent<ItemStack> event) {
         ItemStack stack = event.getObject();
         if (!stack.isEmpty() && stack.getItem() instanceof BaseFoodItem) {
-
             FoodHandler food = getHandler(stack);
             if(food != null){
                 event.addCapability(FoodCapability.KEY, food);
-            }
-            if (stack.getItem() == Items.EGG) {
-                event.addCapability(EggCapability.KEY, new EggHandler(stack));
             }
         }
 
@@ -69,8 +62,8 @@ public class EventHandler {
                 float dairy = nutrients.getFloat("dairy");
                 float[] nutrientsArray = calculateNutrients(grain, fruit, veg, meat, dairy, quality, stack);
                 float decayModifier = 2f;
-                if(stackTag.getBoolean("decay")) decayModifier /= rottenFoodDecayFactor;
-                var data = new FoodData(
+                if(stackTag.getBoolean("decay")) decayModifier = rottenFoodDecayFactor;
+                FoodData data = new FoodData(
                         hunger,
                         nutrientsArray[1] + nutrientsArray[2],
                         0.6f * hunger,
@@ -83,7 +76,6 @@ public class EventHandler {
                 );
                 return new FoodHandler(data);
             }
-            return null;
         }
         return null;
     }
