@@ -118,10 +118,9 @@ public class PlateItemMixin {
             if(foodStack.is(PlateFood.SUSPICIOUS_MIX.item.get())) {
                 nutrientsArray[i] *= getSuspiciousMixFactor();
             }
-
         }
 
-        FoodData tfcFoodData = new FoodData(hunger, nutrientsArray[1] + nutrientsArray[2], 0.6f * hunger, 0, nutrientsArray, decayModifier);
+        FoodData tfcFoodData = new FoodData(hunger, (nutrientsArray[1] + nutrientsArray[2]) * 5f, 0.6f * hunger, 0, nutrientsArray, decayModifier);
 
         FoodCapability.setFoodForDynamicItemOnCreate(foodStack, tfcFoodData);
     }
