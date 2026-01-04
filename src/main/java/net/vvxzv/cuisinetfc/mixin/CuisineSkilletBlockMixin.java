@@ -23,21 +23,21 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import vectorwing.farmersdelight.common.block.SkilletBlock;
 
 @Mixin(CuisineSkilletBlock.class)
-public class CuisineSkilletBlockMixin extends SkilletBlock {
-
-    public CuisineSkilletBlockMixin(Properties properties) {
-        super(properties);
-    }
-
-    @Inject(method = "useItemOn", at = @At("RETURN"), cancellable = true)
+public class CuisineSkilletBlockMixin {
+    @Inject(
+            method = "useItemOn",
+            at = @At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/entity/player/Player;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;",
+                    shift = At.Shift.AFTER
+            )
+    )
     public void onAddFoodToSkillet(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit, CallbackInfoReturnable<ItemInteractionResult> cir) {
         ItemStack heldStack = player.getItemInHand(hand);
         IngredientConfig.IngredientEntry config = IngredientConfig.get().getEntry(heldStack);
         if(config == null){
-            cir.setReturnValue(ItemInteractionResult.SUCCESS);
             return;
         }
 
@@ -53,8 +53,7 @@ public class CuisineSkilletBlockMixin extends SkilletBlock {
                 int allowInputCount = 1 + EnchHelper.getLv(skillet.baseItem, Enchantments.EFFICIENCY);
                 int stackCount = heldStack.getCount();
                 int count = Math.min(stackCount, allowInputCount);
-                if(skillet.cookingData.contents.size() >= (Integer)CDConfig.SERVER.maxIngredient.get()){
-                    cir.setReturnValue(ItemInteractionResult.FAIL);
+                if(skillet.cookingData.contents.size() >= CDConfig.SERVER.maxIngredient.get()){
                     return;
                 }
                 if (skillet instanceof TFCNutrientsHolder holder) {

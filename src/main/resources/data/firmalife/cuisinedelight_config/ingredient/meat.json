@@ -1,0 +1,37 @@
+{
+    "_class": "dev.xkmc.cuisinedelight.content.logic.IngredientConfig",
+    "entries": [
+        {
+            "type": "MEAT",
+            "effects": [],
+            "ingredient": [
+                {
+                    "item": "firmalife:food/bacon"
+                }
+            ],
+            "max_time": 480,
+            "min_time": 180,
+            "nutrition": 8,
+            "overcook_penalty": 0.5,
+            "raw_penalty": 1.0,
+            "size": 1,
+            "stir_time": 80
+        },
+        {
+            "type": "MEAT",
+            "effects": [],
+            "ingredient": [
+                {
+                    "item": "firmalife:food/pickled_egg"
+                }
+            ],
+            "max_time": 360,
+            "min_time": 0,
+            "nutrition": 3,
+            "overcook_penalty": 0.5,
+            "raw_penalty": 0.0,
+            "size": 1,
+            "stir_time": 180
+        }
+    ]
+}

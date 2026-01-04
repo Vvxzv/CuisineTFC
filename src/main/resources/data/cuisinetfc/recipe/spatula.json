@@ -1,0 +1,16 @@
+{
+  "type" : "tfc:anvil",
+  "ingredient" : {
+    "tag" : "c:ingots/wrought_iron"
+  },
+  "result" : {
+    "id" : "cuisinedelight:spatula",
+    "count" : 1
+  },
+  "tier" : 3,
+  "rules" : [
+    "hit_last",
+    "bend_second_last",
+    "draw_third_last"
+  ]
+}

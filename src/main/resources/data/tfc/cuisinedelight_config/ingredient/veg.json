@@ -1,0 +1,123 @@
+{
+    "_class": "dev.xkmc.cuisinedelight.content.logic.IngredientConfig",
+    "entries": [
+        {
+            "type": "VEG",
+            "effects": [],
+            "ingredient": [
+                {
+                    "item": "tfc:food/blackberry"
+                },
+                {
+                    "item": "tfc:food/blueberry"
+                },
+                {
+                    "item": "tfc:food/bunchberry"
+                },
+                {
+                    "item": "tfc:food/cloudberry"
+                },
+                {
+                    "item": "tfc:food/cranberry"
+                },
+                {
+                    "item": "tfc:food/elderberry"
+                },
+                {
+                    "item": "tfc:food/gooseberry"
+                },
+                {
+                    "item": "tfc:food/raspberry"
+                },
+                {
+                    "item": "tfc:food/snowberry"
+                },
+                {
+                    "item": "tfc:food/strawberry"
+                },
+                {
+                    "item": "tfc:food/wintergreen_berry"
+                },
+                {
+                    "item": "tfc:food/banana"
+                },
+                {
+                    "item": "tfc:food/cherry"
+                },
+                {
+                    "item": "tfc:food/green_apple"
+                },
+                {
+                    "item": "tfc:food/lemon"
+                },
+                {
+                    "item": "tfc:food/olive"
+                },
+                {
+                    "item": "tfc:food/orange"
+                },
+                {
+                    "item": "tfc:food/peach"
+                },
+                {
+                    "item": "tfc:food/plum"
+                },
+                {
+                    "item": "tfc:food/red_apple"
+                },
+                {
+                    "item": "tfc:food/melon_slice"
+                },
+                {
+                    "item": "tfc:food/beet"
+                },
+                {
+                    "item": "tfc:food/cabbage"
+                },
+                {
+                    "item": "tfc:food/carrot"
+                },
+                {
+                    "item": "tfc:food/fresh_seaweed"
+                },
+                {
+                    "item": "tfc:food/cattail_root"
+                },
+                {
+                    "item": "tfc:food/taro_root"
+                },
+                {
+                    "item": "tfc:food/green_bell_pepper"
+                },
+                {
+                    "item": "tfc:food/red_bell_pepper"
+                },
+                {
+                    "item": "tfc:food/yellow_bell_pepper"
+                },
+                {
+                    "item": "tfc:food/onion"
+                },
+                {
+                    "item": "tfc:food/squash"
+                },
+                {
+                    "item": "tfc:food/tomato"
+                },
+                {
+                    "item": "tfc:food/onion"
+                },
+                {
+                    "item": "tfc:food/pumpkin_chunks"
+                }
+            ],
+            "max_time": 240,
+            "min_time": 0,
+            "nutrition": 2,
+            "overcook_penalty": 0.3,
+            "raw_penalty": 0.0,
+            "size": 1,
+            "stir_time": 120
+        }
+    ]
+}

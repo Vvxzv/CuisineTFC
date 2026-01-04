@@ -1,21 +1,13 @@
 package net.vvxzv.cuisinetfc;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
-import net.vvxzv.cuisinetfc.common.EventHandler;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
+@SuppressWarnings("removal")
 @EventBusSubscriber(modid = CuisineTFC.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class Config {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
@@ -30,7 +22,7 @@ public class Config {
 
     private static final ModConfigSpec.DoubleValue SUSPICIOUS_MIX_FACTOR = BUILDER.comment(" ").comment("The nutrient factor of Suspicious Mix.  (defaultValue 0.8)").comment("大乱炖的营养系数.  (默认数值 0.8)").defineInRange("suspiciousMixFactor", 0.8, 0, 1);
 
-    private static final ModConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 9999)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 9999)").defineInRange("usedRottenFoodDecayingModifiers", 9999, 0, Double.MAX_VALUE);
+    private static final ModConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 0.2)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 0.2)").defineInRange("usedRottenFoodNutrientFactor", 0.2, 0, Double.MAX_VALUE);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -48,7 +40,5 @@ public class Config {
         maxNutrient = MAX_NUTRIENT.get();
         suspiciousMixFactor = SUSPICIOUS_MIX_FACTOR.get();
         usedRottenFood = USED_ROTTEN_FOOD.get();
-
-        EventHandler.updateConfigValues();
     }
 }

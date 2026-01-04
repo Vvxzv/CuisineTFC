@@ -140,19 +140,27 @@ dependencies {
     runtimeOnly "curse.maven:patchouli-306770:6842247"
 
     // tfc
-    implementation "curse.maven:terrafirmacraft-302973:7035035"
+    implementation "curse.maven:terrafirmacraft-302973:7343990"
 
     // farmers delight
     implementation "curse.maven:farmers-delight-398521:6917256"
 
+    // farmers tfc
+    implementation "curse.maven:farmers-tfc-1318733:7407923"
+
     //JEI
-    compileOnly("mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}")
-    runtimeOnly("mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}")
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 
     //cuisine
     implementation "curse.maven:l2library-620203:6820079"
     implementation "curse.maven:cuisine-delight-893541:6677783"
     implementation jarJar(group: 'dev.xkmc', name: 'l2core', version: "[${l2core_ver},)")
+
+    //KubeJS
+    implementation "curse.maven:architectury-api-419699:5786327"
+    implementation "curse.maven:rhino-416294:7104526"
+    implementation "curse.maven:kubejs-238086:7278501"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.

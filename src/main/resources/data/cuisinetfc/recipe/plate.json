@@ -1,0 +1,26 @@
+{
+  "type" : "tfc:advanced_shaped_crafting",
+  "key" : {
+    "X" : {
+      "tag" : "c:tools/saw"
+    },
+    "#" : {
+      "tag" : "minecraft:planks"
+    }
+  },
+  "pattern" : [
+    "X ",
+    "##"
+  ],
+  "remainder" : {
+    "modifiers" : [
+      {
+        "type" : "tfc:damage_crafting_remainder"
+      }
+    ]
+  },
+  "result" : {
+    "id" : "cuisinedelight:plate",
+    "count" : 32
+  }
+}

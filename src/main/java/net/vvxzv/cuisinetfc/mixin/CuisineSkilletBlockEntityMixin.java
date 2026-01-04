@@ -8,17 +8,16 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.vvxzv.cuisinetfc.common.TFCNutrientsHolder;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Arrays;
 
 @Mixin(CuisineSkilletBlockEntity.class)
-public class CuisineSkilletBlockEntityMixin extends BaseBlockEntity implements TFCNutrientsHolder {
+public class CuisineSkilletBlockEntityMixin implements TFCNutrientsHolder {
+    @Unique
     private final float[] tfcNutrients = new float[Nutrient.TOTAL];
+    @Unique
     private boolean hasRottenFood = false;
-
-    public CuisineSkilletBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState state) {
-        super(type, pos, state);
-    }
 
     @Override
     public void addTFCNutrients(float[] nutrients) {
