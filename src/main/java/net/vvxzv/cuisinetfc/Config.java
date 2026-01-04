@@ -4,7 +4,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.vvxzv.cuisinetfc.common.EventHandler;
 
 
 @Mod.EventBusSubscriber(modid = CuisineTFC.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
@@ -21,7 +20,9 @@ public class Config {
 
     private static final ForgeConfigSpec.DoubleValue SUSPICIOUS_MIX_FACTOR = BUILDER.comment(" ").comment("The nutrient factor of Suspicious Mix.  (defaultValue 0.8)").comment("大乱炖的营养系数.  (默认数值 0.8)").defineInRange("suspiciousMixFactor", 0.8, 0, 1);
 
-    private static final ForgeConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 0.2)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 0.2)").defineInRange("usedRottenFoodNutrientFactor", 0.2, 0, Double.MAX_VALUE);
+    private static final ForgeConfigSpec.DoubleValue USED_ROTTEN_FOOD = BUILDER.comment(" ").comment("This is a factor related to the nutrients value of cooking rotten food.  (defaultValue 0.2)").comment("这是一个与烹饪腐烂食物的营养价值有关的因素.  (默认数值 0.2)").defineInRange("usedRottenFoodNutrientFactor", 0.2, 0, 1);
+
+    private static final ForgeConfigSpec.DoubleValue USED_ROTTEN_FOOD_DECAYING_MODIFIER = BUILDER.comment(" ").comment("This is decaying modifier related to cook rotten food.  (defaultValue 999999)").comment("这是一个烹饪腐烂食物后对保质期修改的值，值越大保质期越短.  (默认数值 999999)").defineInRange("usedRottenFoodDecayingModifier", 999999, 0, Double.MAX_VALUE);
 
     static final ForgeConfigSpec SPEC = BUILDER.build();
 
@@ -29,7 +30,8 @@ public class Config {
     public static double cuisineBonus;
     public static int maxNutrient;
     public static double suspiciousMixFactor;
-    public static double usedRottenFood;
+    public static double usedRottenFoodNutrientFactor;
+    public static double usedRottenFoodDecayingModifier;
 
     @SubscribeEvent
     static void onLoad(final ModConfigEvent event){
@@ -37,8 +39,8 @@ public class Config {
         cuisineBonus = CUISINE_BONUS.get();
         maxNutrient = MAX_NUTRIENT.get();
         suspiciousMixFactor = SUSPICIOUS_MIX_FACTOR.get();
-        usedRottenFood = USED_ROTTEN_FOOD.get();
-
-        EventHandler.updateConfigValues();
+        usedRottenFoodNutrientFactor = USED_ROTTEN_FOOD.get();
+        usedRottenFoodNutrientFactor = USED_ROTTEN_FOOD.get();
+        usedRottenFoodDecayingModifier = USED_ROTTEN_FOOD_DECAYING_MODIFIER.get();
     }
 }

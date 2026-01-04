@@ -5,8 +5,6 @@
   "compatibilityLevel" : "JAVA_8",
   "refmap" : "cuisinetfc.refmap.json",
   "mixins" : [
-    "CuisineSkilletBlockEntityMixin",
-    "CuisineSkilletBlockMixin",
     "PlateItemMixin"
   ],
   "client" : [
