@@ -1,6 +1,5 @@
-package net.vvxzv.cuisinetfc.common;
+package net.vvxzv.cuisinetfc;
 
-import dev.xkmc.cuisinedelight.init.registrate.PlateFood;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +17,17 @@ public class Utils {
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(nbt));
     }
 
-    public static float[] calculateNutrients(ItemStack stack, float[] inputArray, float quality, float factor, float maxNutrient, float suspiciousMixFactor) {
+    public static float[] addTFCNutrients(float[] nutrients, float[] foodNutrients) {
+        if(nutrients.length != 5 || foodNutrients.length != 5) return nutrients;
+        float[] outputNutrients = nutrients.clone();
+        for (int i = 0; i < 5; i++) {
+            outputNutrients[i] += foodNutrients[i];
+        }
+        return outputNutrients;
+    }
+
+
+    public static float[] calculateNutrients(float[] inputArray, float quality, float factor, float maxNutrient) {
         int minIndex = 0;
         for (int i = 1; i < inputArray.length; i++) {
             if (inputArray[i] < inputArray[minIndex]) {
@@ -33,7 +42,6 @@ public class Utils {
         for (int i = 0; i < resultArray.length; i++) {
             resultArray[i] = resultArray[i] * factor * quality;
             if(resultArray[i] > maxNutrient) resultArray[i] = maxNutrient;
-            if(stack.is(PlateFood.SUSPICIOUS_MIX.item.get())) resultArray[i] *= suspiciousMixFactor;
         }
 
         return resultArray;

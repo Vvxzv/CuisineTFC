@@ -155,7 +155,7 @@ dependencies {
     //cuisine
     implementation "curse.maven:l2library-620203:6820079"
     implementation "curse.maven:cuisine-delight-893541:6677783"
-    implementation jarJar(group: 'dev.xkmc', name: 'l2core', version: "[${l2core_ver},)")
+    implementation group: 'dev.xkmc', name: 'l2core', version: "[${l2core_ver},)"
 
     //KubeJS
     implementation "curse.maven:architectury-api-419699:5786327"
