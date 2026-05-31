@@ -104,8 +104,6 @@ CuisineTFCEvent.data(event => {
 5. Finished food can only contain up to 4 nutrients(If it contains 5 nutrients, the least one will be removed).
 
 ### KubeJS Compat
-Added KubeJS Binding for convenient JSON writing. (Of course, you can also choose to write the datapack directly. Below is an example of writing data using KubeJS)
-
 This mod add a new data for solve item nutrients. (Such as, egg has no nutrients, so the nutrients of the finished food can be provided by reading the cooked food data)
 ```JavaScript
 CuisineTFCEvent.data(event => {
