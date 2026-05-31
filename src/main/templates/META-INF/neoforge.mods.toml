@@ -81,13 +81,13 @@ side = "BOTH"
 [[dependencies."${mod_id}"]]
 modId = "tfc"
 type = "required"
-versionRange = "[4,)"
+versionRange = "[4.1.2,)"
 ordering = "AFTER"
 side = "BOTH"
 
 [[dependencies."${mod_id}"]]
 modId = "cuisinedelight"
 type = "required"
-versionRange = "[1.2.6,)"
+versionRange = "[1.2.8,)"
 ordering = "AFTER"
 side = "BOTH"
