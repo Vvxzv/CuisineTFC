@@ -28,6 +28,12 @@
                 },
                 {
                     "item": "firmalife:food/chevre"
+                },
+                {
+                    "item": "firmalife:food/cheddar"
+                },
+                {
+                    "item": "firmalife:food/rajya_metok"
                 }
             ],
             "max_time": 360,
