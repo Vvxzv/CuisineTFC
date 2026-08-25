@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -19,10 +20,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.OnDatapackSyncEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.network.PacketDistributor;
 import net.vvxzv.cuisinetfc.common.data.CookedFood;
+import net.vvxzv.cuisinetfc.network.PacketHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +37,7 @@ public class ForgeEventHandler {
     public static void init(){
         IEventBus bus = MinecraftForge.EVENT_BUS;
         bus.addListener(ForgeEventHandler::addReloadListeners);
+        bus.addListener(ForgeEventHandler::onDataPackSync);
         bus.addListener(ForgeEventHandler::cantCookRottenFood);
         bus.addListener(ForgeEventHandler::onTooltip);
         bus.addGenericListener(ItemStack.class, ForgeEventHandler::attachItemCapabilities);
@@ -40,6 +45,12 @@ public class ForgeEventHandler {
 
     public static void addReloadListeners(AddReloadListenerEvent event) {
         event.addListener(CookedFood.MANAGER);
+    }
+
+    public static void onDataPackSync(OnDatapackSyncEvent event) {
+        ServerPlayer player = event.getPlayer();
+        PacketDistributor.PacketTarget target = player == null ? PacketDistributor.ALL.noArg() : PacketDistributor.PLAYER.with(() -> player);
+        PacketHandler.send(target, CookedFood.MANAGER.createSyncPacket());
     }
 
     public static void cantCookRottenFood(PlayerInteractEvent.RightClickBlock event) {
@@ -87,6 +98,11 @@ public class ForgeEventHandler {
 
         if (!Screen.hasShiftDown()) return;
 
+        IFood food = FoodCapability.get(stack);
+        if(food != null && food.isRotten()) {
+            return;
+        }
+
         List<Component> tooltip = event.getToolTip();
         CookedFood cookedFood = CookedFood.get(stack);
 
@@ -106,9 +122,8 @@ public class ForgeEventHandler {
             tooltip.add(Component.translatable("cuisinetfc.tooltip.nutrition.default").withStyle(ChatFormatting.GRAY));
 
             boolean any = false;
-            IFood food = FoodCapability.get(stack);
-            if(food != null && !food.isRotten()) {
-                for(Nutrient nutrient : Nutrient.VALUES) {
+            if (food != null && !food.isRotten()) {
+                for (Nutrient nutrient : Nutrient.VALUES) {
                     float value = food.getData().nutrient(nutrient);
                     if (value > 0) {
                         tooltip.add(Component.literal(" - ")

@@ -3,6 +3,7 @@ package net.vvxzv.cuisinetfc;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.vvxzv.cuisinetfc.network.PacketHandler;
 
 @Mod(CuisineTFC.MODID)
 public class CuisineTFC {
@@ -12,5 +13,6 @@ public class CuisineTFC {
     public CuisineTFC() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         ForgeEventHandler.init();
+        PacketHandler.init();
     }
 }
