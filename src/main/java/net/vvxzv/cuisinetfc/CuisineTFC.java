@@ -6,6 +6,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.registries.NewRegistryEvent;
 import net.vvxzv.cuisinetfc.common.data.DataManagers;
+import net.vvxzv.cuisinetfc.network.PacketHandler;
 
 @Mod(CuisineTFC.MODID)
 public class CuisineTFC {
@@ -14,6 +15,7 @@ public class CuisineTFC {
     public CuisineTFC(IEventBus modEventBus, ModContainer modContainer) {
         DataManagers.MANAGERS.register(modEventBus);
         modEventBus.addListener(this::registerRegistries);
+        modEventBus.addListener(PacketHandler::setup);
 
         NeoForgeEventHandler.init();
 
