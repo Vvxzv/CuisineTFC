@@ -18,18 +18,22 @@ import java.util.List;
 
 @Mixin(PlateItem.class)
 public class PlateItemMixin {
+
     @Unique
-    private int getFoodSize(){
-        return Config.foodSize;
+    private int getMaxFoodSize() {
+        return Config.maxFoodSize;
     }
+
     @Unique
-    private float getFactor() {
-        return  1f / this.getFoodSize();
-    };
+    private float factor() {
+        return (float) (Config.bonus / this.getMaxFoodSize());
+    }
+
     @Unique
     private int getMaxNutrient() {
         return Config.maxNutrient;
     }
+
     @Unique
     private float getSuspiciousMixFactor() {
         return (float) Config.suspiciousMixFactor;
@@ -40,11 +44,12 @@ public class PlateItemMixin {
         target.addExp(food.score() * food.size() / 100);
 
         List<ItemStack> itemStacks = Utils.getItemFromCookedFoodData(food);
+        int count = Utils.getTotalItemCount(itemStacks);
         float[] totalNutrients = Utils.getTotalCookedFoodNutrients(itemStacks);
-        float[] nutrients = Utils.calculateNutrients(totalNutrients, food.score(), this.getFactor(), this.getMaxNutrient());
+        float[] nutrients = Utils.calculateNutrients(totalNutrients, food.score(), this.factor(), this.getMaxNutrient());
 
-        for (int i = 0; i < nutrients.length; i++) {
-            if(foodStack.is(PlateFood.SUSPICIOUS_MIX.item.get())) {
+        if(foodStack.is(PlateFood.SUSPICIOUS_MIX.item.get())) {
+            for (int i = 0; i < nutrients.length; i++) {
                 nutrients[i] *= this.getSuspiciousMixFactor();
             }
         }
@@ -53,7 +58,7 @@ public class PlateItemMixin {
                 CDItems.COOKED,
                 new CookedFoodData(
                         food.total(),
-                        this.getFoodSize(),
+                        Math.min(count, this.getMaxFoodSize()),
                         food.nutrition(),
                         food.score(),
                         food.types(),
@@ -64,7 +69,7 @@ public class PlateItemMixin {
         FoodData tfcFoodData = new FoodData(
                 4,
                 (nutrients[1] + nutrients[2]) * 5,
-                0.8f * Utils.getTotalItemCount(itemStacks),
+                0.8f * count,
                 0,
                 nutrients,
                 Utils.calculateDecayModifier(itemStacks)
