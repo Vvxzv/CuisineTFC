@@ -63,7 +63,7 @@ public class Utils {
         resultArray[minIndex] = 0f;
 
         for (int i = 0; i < resultArray.length; i++) {
-            resultArray[i] = resultArray[i] * factor * score / 100F;
+            resultArray[i] = factor * resultArray[i] *  score / 100f;
             if(resultArray[i] > maxNutrient) resultArray[i] = maxNutrient;
         }
 

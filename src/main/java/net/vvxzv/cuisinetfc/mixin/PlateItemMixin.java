@@ -18,13 +18,13 @@ import java.util.List;
 public class PlateItemMixin {
 
     @Unique
-    private int getFoodSize() {
-        return Config.foodSize;
+    private int getMaxFoodSize() {
+        return Config.maxFoodSize;
     }
 
     @Unique
-    private float getFactor(){
-        return 1f / this.getFoodSize();
+    private float factor() {
+        return (float) (Config.bonus / this.getMaxFoodSize());
     }
 
     @Unique
@@ -42,11 +42,12 @@ public class PlateItemMixin {
         target.addExp(food.score * food.size / 100);
 
         List<ItemStack> itemStacks = Utils.getItemFromCookedFoodData(food);
+        int count = Utils.getTotalItemCount(itemStacks);
         float[] totalNutrients = Utils.getTotalCookedFoodNutrients(itemStacks);
-        float[] nutrients = Utils.calculateNutrients(totalNutrients, food.score, this.getFactor(), this.getMaxNutrient());
+        float[] nutrients = Utils.calculateNutrients(totalNutrients, food.score, this.factor(), this.getMaxNutrient());
 
-        for (int i = 0; i < nutrients.length; i++) {
-            if(foodStack.is(PlateFood.SUSPICIOUS_MIX.item.get())) {
+        if(foodStack.is(PlateFood.SUSPICIOUS_MIX.item.get())) {
+            for (int i = 0; i < nutrients.length; i++) {
                 nutrients[i] *= this.getSuspiciousMixFactor();
             }
         }
@@ -54,13 +55,13 @@ public class PlateItemMixin {
         CompoundTag stackTag = foodStack.getOrCreateTag();
 
         CompoundTag cookedFoodData = stackTag.getCompound("CookedFoodData");
-        cookedFoodData.putInt("size", this.getFoodSize());
+        cookedFoodData.putInt("size", Math.min(count, this.getMaxFoodSize()));
         stackTag.put("CookedFoodData", cookedFoodData);
 
         CompoundTag foodData = new CompoundTag();
         foodData.putInt("food", 4);
         foodData.putFloat("water", (nutrients[1] + nutrients[2]) * 5);
-        foodData.putFloat("sat", 0.8f * Utils.getTotalItemCount(itemStacks));
+        foodData.putFloat("sat", 0.8f * count);
         foodData.putFloat("grain", nutrients[0]);
         foodData.putFloat("fruit", nutrients[1]);
         foodData.putFloat("veg", nutrients[2]);
